@@ -1,23 +1,46 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import { Todo } from './Component/Todo';
+import { Todolist } from './Component/Todolist';
 
 function App() {
+  const [todo, settodo]= React.useState([])
+
+    
+
+  const todoinput=(str)=>{
+    settodo([...todo ,{ id: Date.now(), iscomplate: false, fevrate: false, value: str }])
+  }
+
+  const markascomplate =(id,statas)=>{
+    todo.map((element)=>{
+      if(element.id===id){
+        element.iscomplate=statas;
+        
+      }
+      return 0;
+    })
+    settodo(todo)
+  }
+
+  const markasfev =(id)=>{
+    todo.map((element)=>{
+      if(element.id===id){
+        if(element.fevrate===true){
+          element.fevrate=false;
+        }else{
+          element.fevrate=true;
+        }
+      }
+      return 0;
+    })
+    settodo(todo)
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Todo  todoin={todoinput} />
+      <Todolist todos={todo} markascomplate={markascomplate} markasfev={markasfev}/>
     </div>
   );
 }
